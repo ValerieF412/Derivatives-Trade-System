@@ -1,0 +1,69 @@
+{%extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block active %}
+        <li>
+          {% load static %}
+          <a href="/trades/">Dashboard
+            <img src="{% static "trades/dashboard.png" %}">
+          </a> <!--named index.html as file -->
+        </li>
+          {% load static %}
+          <a href="/trades/trade/">Trades
+            <img src="{% static "trades/trade.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/reports">Daily Reports
+            <img src="{% static "trades/report.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/data_entry">Enter Trade
+            <img src="{% static "trades/pencil.png" %}">
+          </a>
+            </li>
+        <li>
+            <li class="active">
+            {% load static %}
+            <a href="/trades/corrections">Corrections
+            </a>
+        </li>
+            
+{% endblock active %}
+
+{%block content%}
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 class="card-title">Corrections</h5>
+			<table class ="table table-sm">
+				<tr>
+                    <th>Product </th>
+                    <th>Buyer </th>
+                    <th>Seller </th>
+                    <th>Field </th>
+                    <th>Original Value </th>
+                    <th>Corrected Value </th>
+				</tr>
+                {% for c in data %}
+				<tr>
+					<td>{{ c.0 }}</td>
+					<td>{{ c.1 }}</td>
+					<td>{{ c.2 }}</td>
+					<td>{{ c.3 }}</td>
+					<td>{{ c.4 }}</td>
+                    <td>{{ c.5 }}</td>
+                    <td> 
+                        <a href="/trades/corrections/delete/{{ c.3 }}/{{ c.4}}/{{ c.5 }}">Delete</a>
+                    </td>
+                </tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock content%}

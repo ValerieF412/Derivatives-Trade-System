@@ -1,0 +1,45 @@
+{%extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content%}
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 class="card-title">History</h5>
+			<table class ="table table-sm">
+				<tr>
+					<th>Trade ID </th>
+					<th>Product Name </th>
+					<th>Date </th>
+					<th>Buyer </th>
+					<th>Seller </th>
+					<th>Notional Amount </th>
+					<th>Notional Currency</th>
+					<th>Underlying Price </th>
+					<th>Underlying Currency </th>
+					<th>Strike Price </th>
+					<th>Quantity</th>
+					<th>Maturity Date</th>
+				</tr>
+				{% for trade in history %}
+				<tr>
+					<td>{{ trade.id }}</td>
+					<td>{{ trade.product_name }}</td>
+					<td>{{ trade.add_date }}</td>
+					<td>{{ trade.buying_party }}</td>
+					<td>{{ trade.selling_party }}</td>
+					<td>{{ trade.notional_amount }}</td>
+					<td>{{ trade.notional_currency }}</td>
+					<td>{{ trade.underlying_price }}</td>
+					<td>{{ trade.underlying_currency }}</td>
+					<td>{{ trade.strike_price }}</td>
+					<td>{{ trade.quantity }}</td>
+					<td>{{ trade.maturity_date }}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trading Monitor System</title>
+    <!-- Including Bootstrap -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static "trades/bootstrap.min.css" %}">
+    {% load static %}
+    <link rel="stylesheet" href="{% static "trades/style.css" %}">
+
+</head>
+<body>
+
+  <div class="wrapper">
+    <nav id="sidebar">
+      <div class="sidebar-header">
+        <h3> Trade Management System </h3>
+        <strong>TMS</strong>
+        <!-- New sidebar collapse button -->
+        <a class="navbtn"></a>
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </a>
+      </div>
+	   <ul class="list-unstyled components">
+      {% block active %}{% endblock %}
+	   </ul>
+    </nav>
+
+    <!-- Content for pages goes below here ----------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <div id="content">
+
+  <!-- added alerts to the base file so that they appear regardless of what page you are on -->
+  {% if messages %}
+    {%for message in messages%}
+      <div class="alert alert-{{ message.tags }}">
+        {{message}}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+	{% block content %}{% endblock %}
+
+    </div>
+
+    <!-- javascript/jquery added after html -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+  <!-- can put into file if needs expanding on -->
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // Creates initial localStorage item for menu state
+      if (localStorage.getItem("menuState") === null) {
+        localStorage.setItem("menuState", "true");
+      }
+
+      $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+          $(this).toggleClass('active');
+
+          // toggles localStorage menu state to maintain across pages.
+          if (localStorage.getItem("menuState") === "true") {
+            localStorage.setItem("menuState", "false");
+          } else if (localStorage.getItem("menuState") === "false") {
+            localStorage.setItem("menuState", "true");
+          }
+      });
+    });
+
+        // script allows for menu state to maintain across pages
+        if (localStorage.getItem("menuState") === "false") {
+          var x = document.getElementById("sidebarCollapse");
+          x.classList.add("active");
+          $('#sidebar').toggleClass('active');
+            $(this).toggleClass('active');
+        }
+
+  </script>
+
+</body>
+</html>

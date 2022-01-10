@@ -1,0 +1,99 @@
+{%extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block active %}
+        <li>
+          {% load static %}
+          <a href="/trades/">Dashboard
+            <img src="{% static "trades/dashboard.png" %}">
+          </a> <!--named index.html as file -->
+        </li>
+        <li class="active">
+          {% load static %}
+          <a href="/trades/trade/">Trades
+            <img src="{% static "trades/trade.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/reports">Daily Reports
+            <img src="{% static "trades/report.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/data_entry">Enter Trade
+            <img src="{% static "trades/pencil.png" %}">
+          </a>
+			</li>
+		<li>
+			{% load static %}
+			<a href="/trades/corrections">Corrections
+			</a>
+		</li>
+{% endblock active %}
+
+{%block content%}
+
+<br>
+	<div class="row">
+		<div class="col">
+			<div class="card card-body">
+				<h5 class="card-title">Filter</h5>
+				<form method="get">
+					{{ myFilter.form|crispy }}
+					<button class="btn btn-primary" type="submit">Apply</button>
+				</form>
+			</div>
+
+		</div>
+	</div>
+<br>
+
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5 class="card-title">Trades</h5>
+			<table class ="table table-sm">
+				<tr>
+					<th>Trade ID </th>
+					<th>Product Name </th>
+					<th>Date </th>
+					<th>Buyer </th>
+					<th>Seller </th>
+					<th>Notional Amount </th>
+					<th>Notional Currency</th>
+					<th>Underlying Price </th>
+					<th>Underlying Currency </th>
+					<th>Strike Price </th>
+					<th>Quantity</th>
+					<th>Maturity Date</th>
+				</tr>
+				{% for trade in trades %}
+				<tr>
+					<td>{{ trade.id }}</td>
+					<td>{{ trade.product_name }}</td>
+					<td>{{ trade.add_date }}</td>
+					<td>{{ trade.buying_party }}</td>
+					<td>{{ trade.selling_party }}</td>
+					<td>{{ trade.notional_amount }}</td>
+					<td>{{ trade.notional_currency }}</td>
+					<td>{{ trade.underlying_price }}</td>
+					<td>{{ trade.underlying_currency }}</td>
+					<td>{{ trade.strike_price }}</td>
+					<td>{{ trade.quantity }}</td>
+					<td>{{ trade.maturity_date }}</td>
+					<td>
+						<a href="/trades/edit/{{ trade.id }}"><span class="glyphicon-pencil">Edit</span>
+						<a href="/trades/delete/{{ trade.id }}">Delete</a>
+						<a href="/trades/history/{{ trade.id }}">History</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock content%}

@@ -1,0 +1,11 @@
+Instructions on how to setup and run system
+Requirements:
+- Python 3.7 (not compatiable with 3.8)
+- SQLite3
+These are both easily installable and available online. For some operating systems both of these come prepackaged. 
+1. Using PIP (the python package installer) run pip install -r requirements.txt
+2. To setup the database run python manage.py migrate
+3. To initalise the database with the dummydata, run python import.py. This requires the Data to be in a folder labelled 'Data' which 
+is in the same directory as the project directory. This has not been included in the zip file to reduce file size. 
+4. The system can now be run using python manage.py runserver. Navigating to localhost:8000/trades
+

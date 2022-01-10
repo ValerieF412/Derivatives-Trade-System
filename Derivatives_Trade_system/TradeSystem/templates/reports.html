@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block active %}
+        <li>
+          {% load static %}
+          <a href="/trades/">Dashboard
+            <img src="{% static "trades/dashboard.png" %}">
+          </a> <!--named index.html as file -->
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/trade/">Trades
+            <img src="{% static "trades/trade.png" %}">
+          </a>
+        </li>
+        <li class="active">
+          {% load static %}
+          <a href="/trades/reports">Daily Reports
+            <img src="{% static "trades/report.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/data_entry">Enter Trade
+            <img src="{% static "trades/pencil.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/corrections">Corrections
+          </a>
+        </li>
+{% endblock active %}
+
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" value="Generate Report" />
+
+  <table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>  
+        <th>Date</th>
+        <th>Report</th>
+    </tr>  
+    </thead>  
+    <tbody>
+    {% for report in reports%}  
+    <tr>  
+        <td>{{ report.date }}</td>  
+        <td>  
+          <a href="..{{ report.pdf.url }}"><span class="glyphicon-pencil">PDF</span>
+						<a href="..{{ report.csv.url}}"">CSV</a>
+        </td>
+    </tr>  
+    {% endfor %}
+
+</form>
+
+{% endblock content%}

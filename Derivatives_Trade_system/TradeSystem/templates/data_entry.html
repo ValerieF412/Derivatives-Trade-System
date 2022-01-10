@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block active %}
+        <li>
+          {% load static %}
+          <a href="/trades/">Dashboard
+            <img src="{% static "trades/dashboard.png" %}">
+          </a> <!--named index.html as file -->
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/trade/">Trades
+            <img src="{% static "trades/trade.png" %}">
+          </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/reports">Daily Reports
+            <img src="{% static "trades/report.png" %}">
+          </a>
+        </li>
+        <li class="active">
+        {% load static %}
+        <a href="/trades/data_entry">Enter Trade
+          <img src="{% static "trades/pencil.png" %}">
+        </a>
+        </li>
+        <li>
+          {% load static %}
+          <a href="/trades/corrections">Corrections
+          </a>
+        </li>
+{% endblock active %}
+
+<!--added this, code above should ideally be deleted if this is to work-->
+{% block content %}
+<div class="centered">
+  <div class="content-section">
+    <form method="POST"> 
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4"> Add New Trade</legend>
+        <!--this will render our form as paragraph tags-->
+        <!--.as_p filter can be removed as we can use crispy forms for the styling-->
+        {{form|crispy}}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Add</button>
+      </div>
+    </form>
+    <div class="border-top pt-3">
+      <small class="text-muted">
+        Already Entered A Trade? <a class="ml-2" href="/trades/trade/">View Trades</a>
+      </small>
+    </div>
+  </div>
+</div>
+{% endblock content%}

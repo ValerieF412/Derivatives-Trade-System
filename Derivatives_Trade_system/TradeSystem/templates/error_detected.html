@@ -1,0 +1,42 @@
+{%extends 'base.html' %}
+
+{% block active %}
+
+    <li>
+      {% load static %}
+      <a href="/trades/">Dashboard
+        <img src="{% static "trades/dashboard.png" %}">
+      </a> <!--named index.html as file -->
+    </li>
+    <li class="active">
+      {% load static %}
+      <a href="#">Trades
+        <img src="{% static "trades/trade.png" %}">
+      </a>
+    </li>
+    <li>
+      {% load static %}
+      <a href="/trades/reports">Daily Reports
+        <img src="{% static "trades/report.png" %}">
+      </a>
+    </li>
+    <li>
+      {% load static %}
+      <a href="/trades/data_entry">Enter Trade
+        <img src="{% static "trades/pencil.png" %}">
+      </a>
+    </li>
+
+{% endblock active %}
+
+{%block content%}
+
+<form class="site-form"action="/trades/error_detected/{{ id }}/{{ error }}"method="POST">
+    {% csrf_token %}
+	{{ form }}
+
+   <input type="submit"value="Update">
+ </form>
+
+
+{% endblock content%}
